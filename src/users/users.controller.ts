@@ -13,32 +13,32 @@ import { UsersService } from './users.service';
 import { CreateUserDto, PartialUserDto, UpdateUserDto } from './dtos';
 import { UserEntity } from './entities/user.entity';
 
-@Controller('api')
+@Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  @Get('users')
+  @Get()
   async usersAll(): Promise<UserEntity[]> {
     try {
       return this.userService.getAllUsers();
     } catch (error) {}
   }
 
-  @Get('users/:id')
+  @Get(':id')
   async user(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
     try {
       return this.userService.getUser(id);
     } catch (error) {}
   }
 
-  @Post('users')
+  @Post()
   async createUser(@Body() data: CreateUserDto): Promise<UserEntity> {
     try {
       return this.userService.createUser(data);
     } catch (error) {}
   }
 
-  @Put('users/:id')
+  @Put(':id')
   async updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: UpdateUserDto,
@@ -48,7 +48,7 @@ export class UsersController {
     } catch (error) {}
   }
 
-  @Patch('users/:Id')
+  @Patch(':id')
   async partialUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() data: PartialUserDto,
@@ -58,7 +58,7 @@ export class UsersController {
     } catch (error) {}
   }
 
-  @Delete('users/:id')
+  @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
     try {
       return this.userService.deleteUser(id);

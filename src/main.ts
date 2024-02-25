@@ -1,10 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
 const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+
+  const configService = app.get(ConfigService);
+  const SERVER_PORT = configService.get<number>('PORT');
+
+  // Prefijo Global para todas las rutas
+  app.setGlobalPrefix('api');
+
+  await app.listen(SERVER_PORT);
 
   const validationPipe = new ValidationPipe({
     whitelist: true,
@@ -16,4 +24,5 @@ const bootstrap = async () => {
   const URL = await app.getUrl();
   console.log(`Server running on port ${URL}`);
 };
+
 bootstrap();
