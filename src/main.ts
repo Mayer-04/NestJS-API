@@ -6,7 +6,11 @@ const bootstrap = async () => {
   const app = await NestFactory.create(AppModule);
   await app.listen(3000);
 
-  const validationPipe = new ValidationPipe();
+  const validationPipe = new ValidationPipe({
+    whitelist: true,
+    // Transformar o convertir automáticamente los parámetros
+    transform: true,
+  });
   app.useGlobalPipes(validationPipe);
 
   const URL = await app.getUrl();

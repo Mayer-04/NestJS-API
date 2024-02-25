@@ -1,13 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserEntity } from './entities/user.entity';
-import { CreateUserDto, UpdateUserDto } from './dtos';
+import { CreateUserDto, PartialUserDto, UpdateUserDto } from './dtos';
 
 @Injectable()
 export class UsersService {
   constructor(private prismaService: PrismaService) {}
 
-  async usersAll(): Promise<UserEntity[]> {
+  async getAllUsers(): Promise<UserEntity[]> {
     return this.prismaService.users.findMany({
       select: {
         id: true,
@@ -18,8 +18,8 @@ export class UsersService {
     });
   }
 
-  async user(id: number): Promise<UserEntity | null> {
-    const user = await this.prismaService.users.findUnique({
+  async getUser(id: number): Promise<UserEntity | null> {
+    return this.prismaService.users.findUnique({
       where: {
         id,
       },
@@ -30,12 +30,6 @@ export class UsersService {
         age: true,
       },
     });
-
-    if (!user) {
-      throw new NotFoundException();
-    }
-
-    return user;
   }
 
   async createUser(data: CreateUserDto): Promise<UserEntity> {
@@ -45,6 +39,15 @@ export class UsersService {
   }
 
   async updateUser(id: number, data: UpdateUserDto): Promise<UserEntity> {
+    return this.prismaService.users.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
+
+  async partialUser(id: number, data: PartialUserDto): Promise<UserEntity> {
     return this.prismaService.users.update({
       where: {
         id,
