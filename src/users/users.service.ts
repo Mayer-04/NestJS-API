@@ -59,6 +59,13 @@ export class UsersService {
   async deleteUser(id: number): Promise<UserEntity | null> {
     return this.prismaService.users.delete({
       where: { id },
+      select: {
+        id: true,
+        name: true,
+        lastname: true,
+        email: true,
+        age: true,
+      },
     });
   }
 }
