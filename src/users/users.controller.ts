@@ -5,12 +5,11 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
   Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto, PartialUserDto, UpdateUserDto } from './dtos';
+import { CreateUserDto, UpdateUserDto } from './dtos';
 import { UserEntity } from './entities/user.entity';
 
 @Controller('users')
@@ -54,18 +53,6 @@ export class UsersController {
     try {
       const user = await this.userService.updateUser(id, data);
       console.log({ update: user });
-      return user;
-    } catch (error) {}
-  }
-
-  @Patch(':id')
-  async partialUser(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() data: PartialUserDto,
-  ): Promise<UserEntity> {
-    try {
-      const user = await this.userService.partialUser(id, data);
-      console.log({ partial: user });
       return user;
     } catch (error) {}
   }
