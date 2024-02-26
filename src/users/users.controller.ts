@@ -18,14 +18,14 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  async usersAll(): Promise<UserEntity[]> {
+  async getAllUsers(): Promise<UserEntity[]> {
     try {
       return this.userService.getAllUsers();
     } catch (error) {}
   }
 
   @Get(':id')
-  async user(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
+  async getUser(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
     try {
       return this.userService.getUser(id);
     } catch (error) {}
