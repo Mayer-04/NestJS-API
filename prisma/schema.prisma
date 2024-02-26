@@ -11,6 +11,7 @@ model Users {
   id        Int       @id @default(autoincrement())
   name      String
   lastname  String
+  email     String
   age       Int
   createdAt DateTime? @default(now())
   updatedAt DateTime  @updatedAt

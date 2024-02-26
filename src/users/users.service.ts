@@ -13,12 +13,13 @@ export class UsersService {
         id: true,
         name: true,
         lastname: true,
+        email: true,
         age: true,
       },
     });
   }
 
-  async getUser(id: number): Promise<UserEntity | null> {
+  async getUserById(id: number): Promise<UserEntity | null> {
     return this.prismaService.users.findUnique({
       where: {
         id,
@@ -27,6 +28,7 @@ export class UsersService {
         id: true,
         name: true,
         lastname: true,
+        email: true,
         age: true,
       },
     });

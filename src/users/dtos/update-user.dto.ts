@@ -1,4 +1,10 @@
-import { IsString, IsInt, IsPositive, IsNotEmpty } from 'class-validator';
+import {
+  IsString,
+  IsInt,
+  IsPositive,
+  IsNotEmpty,
+  IsEmail,
+} from 'class-validator';
 
 export class UpdateUserDto {
   @IsString()
@@ -8,6 +14,10 @@ export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   readonly lastname: string;
+
+  @IsEmail()
+  @IsNotEmpty()
+  readonly email: string;
 
   @IsInt()
   @IsPositive()

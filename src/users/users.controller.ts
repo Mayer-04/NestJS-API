@@ -20,21 +20,29 @@ export class UsersController {
   @Get()
   async getAllUsers(): Promise<UserEntity[]> {
     try {
-      return this.userService.getAllUsers();
+      const user = await this.userService.getAllUsers();
+      console.log({ getAll: user });
+      return user;
     } catch (error) {}
   }
 
   @Get(':id')
-  async getUser(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
+  async getUserById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<UserEntity> {
     try {
-      return this.userService.getUser(id);
+      const user = await this.userService.getUserById(id);
+      console.log({ get: user });
+      return user;
     } catch (error) {}
   }
 
   @Post()
   async createUser(@Body() data: CreateUserDto): Promise<UserEntity> {
     try {
-      return this.userService.createUser(data);
+      const user = await this.userService.createUser(data);
+      console.log({ create: user });
+      return user;
     } catch (error) {}
   }
 
@@ -44,7 +52,9 @@ export class UsersController {
     @Body() data: UpdateUserDto,
   ): Promise<UserEntity> {
     try {
-      return this.userService.updateUser(id, data);
+      const user = await this.userService.updateUser(id, data);
+      console.log({ update: user });
+      return user;
     } catch (error) {}
   }
 
@@ -54,14 +64,18 @@ export class UsersController {
     @Body() data: PartialUserDto,
   ): Promise<UserEntity> {
     try {
-      return this.userService.partialUser(id, data);
+      const user = await this.userService.partialUser(id, data);
+      console.log({ partial: user });
+      return user;
     } catch (error) {}
   }
 
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
     try {
-      return this.userService.deleteUser(id);
+      const user = await this.userService.deleteUser(id);
+      console.log({ delete: user });
+      return user;
     } catch (error) {}
   }
 }
