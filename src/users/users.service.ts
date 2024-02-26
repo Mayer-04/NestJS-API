@@ -34,6 +34,10 @@ export class UsersService {
     });
   }
 
+  async getUserByEmail(email: string): Promise<UserEntity | null> {
+    return this.prismaService.users.findUnique({ where: { email } });
+  }
+
   async createUser(data: CreateUserDto): Promise<UserEntity> {
     return this.prismaService.users.create({
       data,

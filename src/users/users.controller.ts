@@ -1,8 +1,10 @@
 import {
   Body,
+  ConflictException,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -31,18 +33,28 @@ export class UsersController {
   ): Promise<UserEntity> {
     try {
       const user = await this.userService.getUserById(id);
+
       console.log({ get: user });
+
+      if (!user) {
+        throw new NotFoundException();
+      }
       return user;
     } catch (error) {}
   }
 
   @Post()
   async createUser(@Body() data: CreateUserDto): Promise<UserEntity> {
-    try {
-      const user = await this.userService.createUser(data);
-      console.log({ create: user });
-      return user;
-    } catch (error) {}
+    const existingUser = await this.userService.getUserByEmail(data.email);
+    if (existingUser) {
+      throw new ConflictException();
+    }
+
+    console.log({ exist: existingUser });
+
+    const newUser = await this.userService.createUser(data);
+    console.log({ create: newUser });
+    return newUser;
   }
 
   @Put(':id')
@@ -51,18 +63,24 @@ export class UsersController {
     @Body() data: UpdateUserDto,
   ): Promise<UserEntity> {
     try {
-      const user = await this.userService.updateUser(id, data);
-      console.log({ update: user });
-      return user;
+      const existingUser = await this.userService.updateUser(id, data);
+      if (!existingUser) {
+        throw new NotFoundException();
+      }
+      console.log({ update: existingUser });
+      return existingUser;
     } catch (error) {}
   }
 
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number): Promise<UserEntity> {
     try {
-      const user = await this.userService.deleteUser(id);
-      console.log({ delete: user });
-      return user;
+      const existingUser = await this.userService.deleteUser(id);
+      if (!existingUser) {
+        throw new NotFoundException();
+      }
+      console.log({ delete: existingUser });
+      return existingUser;
     } catch (error) {}
   }
 }

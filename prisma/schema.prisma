@@ -9,9 +9,9 @@ datasource db {
 
 model Users {
   id        Int       @id @default(autoincrement())
-  name      String
-  lastname  String
-  email     String
+  name      String    @db.VarChar(30)
+  lastname  String    @db.VarChar(30)
+  email     String    @unique @db.VarChar(255)
   age       Int
   createdAt DateTime? @default(now())
   updatedAt DateTime  @updatedAt

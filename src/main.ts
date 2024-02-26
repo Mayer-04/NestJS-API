@@ -12,14 +12,12 @@ const bootstrap = async () => {
   // Prefijo Global para todas las rutas
   app.setGlobalPrefix('api');
 
-  await app.listen(SERVER_PORT);
-
   const validationPipe = new ValidationPipe({
     whitelist: true,
-    // Transformar o convertir automáticamente los parámetros
-    transform: true,
   });
   app.useGlobalPipes(validationPipe);
+
+  await app.listen(SERVER_PORT);
 
   const URL = await app.getUrl();
   console.log(`Server running on port ${URL}`);
