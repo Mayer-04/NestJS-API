@@ -1,4 +1,4 @@
-# NestJS - CRUD
+# NestJS - CRUD 🐈
 
 Este proyecto es una API REST de usuarios desarrollada en NestJS, utilizando PostgreSQL como base de datos con el ORM [Prisma](https://www.prisma.io/). La API implementa operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar usuarios, así como validaciones de datos y de endpoints para garantizar la integridad y seguridad de la aplicación.
 
