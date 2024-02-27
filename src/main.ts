@@ -24,7 +24,10 @@ const bootstrap = async () => {
   app.setGlobalPrefix('api');
 
   const validationPipe = new ValidationPipe({
+    // Propiedades que están explícitamente decoradas con un decorador de validación
     whitelist: true,
+    // Rechazando cualquier solicitud que contenga propiedades no autorizadas.
+    forbidNonWhitelisted: true,
   });
   app.useGlobalPipes(validationPipe);
 
