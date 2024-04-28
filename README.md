@@ -4,7 +4,7 @@ Este proyecto es una API REST de usuarios desarrollada en NestJS, utilizando Pos
 
 ## Requisitos
 
-- [Node.js](https://nodejs.org/en) (v16.0.0 o superior)
+- [Node.js](https://nodejs.org/en) (v18.0.0 o superior)
 - [pnpm](https://pnpm.io/es/) (Puedes instalarlo globalmente con `npm install -g pnpm` o habilitando Corepack con `corepack enable pnpm` desde la v16.13 de Node.js)
 - [Docker](https://www.docker.com) (Se requiere Docker para ejecutar los servicios deseados, base de datos PostgreSQL)
 
@@ -50,6 +50,6 @@ La API expone los siguientes endpoints para realizar operaciones CRUD:
 
 La API está documentada utilizando Swagger. Una vez que el servidor esté en funcionamiento, puedes acceder a la documentación en:
 
-  ```bash
-   http://localhost:5000/users
-   ```
+```bash
+http://localhost:5000/users
+ ```
