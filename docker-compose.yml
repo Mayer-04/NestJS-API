@@ -1,7 +1,7 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  postgres-db:
+  db:
     image: postgres:16.2
     restart: always
     environment:
@@ -12,3 +12,16 @@ services:
       - ./postgres:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=${PORT}
+    ports:
+      - '5000:5000'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/usr/src/app
